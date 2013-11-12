@@ -29,11 +29,26 @@ try{kekbot.implode();}catch(e){}
 var kekbot = {};
 
 //Define the basic settings of Kekbot.
-kekbot.enabled = false;
 kekbot.alias = "[KB]";
 kekbot.version = "2.0beta1";
 kekbot.buildnum = 10;
 
+//Kekbot user functions. NOT to be confused with kekbot.users, which stores the users.
+kekbot.user = {};
+
+//Kekbot users.
+kekbot.users = {};
+
+//Kekbot status. Not sure what I am going to do with this yet.
+kekbot.status = {};
+kekbot.status.enabled = false;
+
+//Kekbot tests.
+kekbot.test = {};
+kekbot.test.enabled = kekbot.status.enabled;
+kekbot.test.mod = function(userid, admin){
+	if (!admin && kekbot.users[userid] )
+}
 
 
 /*
