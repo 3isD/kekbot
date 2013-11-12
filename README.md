@@ -1,5 +1,5 @@
-kekbot (V2!)
-============
+KekBot
+======
 
 A plug.dj bot.
 
@@ -7,6 +7,7 @@ Support
 -------
 
 This code has been tested on Chromium 30+
+
 Support for other browsers is unknown.
 
 Installation
@@ -15,12 +16,15 @@ Installation
 **v1.x**
 
 (no license)
+
 Simply the kekbot_old.js code into your favorite browser's JS console.
+
 Modify the code and variables to your preferences.
 
 **v2.x**
 
 (MIT license)
+
 Not yet available.
 
 Commands
