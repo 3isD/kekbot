@@ -52,3 +52,53 @@ kekbot.test.mod = function(userid, admin){
 	else if (admin && kekbot.users[userid].role > 2){return true;}
 	else{return false;}
 }
+
+//Kekbot handlers.
+kekbot.handle = {};
+kekbot.handle.chat = function(data){
+	//Track the user.
+
+	//Parse whatever the chat says, and run a command if a regex triggers.
+
+	//TODO: Shall I just have just some functions be attached to the handler, and send the data to them on chat?
+	//It seems easier and more flexible that way.
+}
+//Kekbot user handlers.
+kekbot.handle.user = {};
+
+//TODO: Can I have a function that runs a set of functions on a call of any of these functions? A prototype, maybe?
+
+kekbot.handle.user.join = function(data){
+	//Track that user.
+}
+kekbot.handle.user.leave = function(data){
+	//Track that user.
+}
+kekbot.handle.user.fan = function(data){
+	//Track that user.
+	//Also, become a fan of that user.
+}
+kekbot.handle.user.skip = function(data){
+	//Track the user.
+	//Does it trigger when Kekbot skips?
+}
+
+//Kekbot core functions.
+kekbot.implode = function(){
+	console.log("Kekbot: Imploding. Bye bye!");
+	API.off(API.CHAT, kekbot.handle.chat);
+	API.off(API.USER_JOIN, kekbot.handle.user.join);
+	API.off(API.USER_LEAVE, kekbot.handle.user.leave);
+	API.off(API.USER_FAN, kekbot.handle.user.fan);
+	API.off(API.USER_SKIP, kekbot.handle.user.skip);
+	kekbot = undefined;
+}
+
+kekbot.init = function(){
+	console.log("Kekbot: Init.");
+	API.on(API.CHAT, kekbot.handle.chat);
+	API.on(API.USER_JOIN, kekbot.handle.user.join);
+	API.on(API.USER_LEAVE, kekbot.handle.user.leave);
+	API.on(API.USER_FAN, kekbot.handle.user.fan);
+	API.on(API.USER_SKIP, kekbot.handle.user.skip);
+}
