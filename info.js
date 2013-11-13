@@ -8,7 +8,7 @@
 	}catch(e){
 		alert("KekBot: Could not update. See error in console.");
 		console.log("KekbotERROR:");
-		console.log(e);b n
+		console.log(e);
 	}
 	alert("Done.");
 	var kbv = document.getElementById("KekBot").getElementsByClassName("kbversion")[0];
