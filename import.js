@@ -11,7 +11,7 @@ function prepareKekbot(){
 	var bodelm = document.getElementsByTagName("body")[0];
 	bodelm.insertBefore(kbdiv,bodelm.firstChild);
 	//install the code
-	function installKekbot(){
+	window.installKekbot = function(){
 		var newkb = document.createElement("script");
 		newkb.setAttribute("class", "KB_"+kbinf.buildnum);
 		newkb.setAttribute("src", "https://raw.github.com/Strategetical/kekbot/master/kekbot.js");
