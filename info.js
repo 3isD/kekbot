@@ -1,20 +1,18 @@
-(function(){
-	window.kbinf = {};
-	kbinf.buildnum = 10;
-	try{
-		if (kbinf.buildnum > kekbot.buildnum){
-			alert("Gotta update!");
-		}
-	}catch(e){
-		alert("KekBot: Could not update. See error in console.");
-		console.log("KekbotERROR:");
-		console.log(e);
+kbinf = {};
+kbinf.buildnum = 10;
+try{
+	if (kbinf.buildnum > kekbot.buildnum){
+		kekbot.say("Updating KekBot from build number "+kekbot.buildnum+" to "+kbinf.buildnum);
+		kekbot.forceUpdate();
 	}
-	alert("Done.");
-	var kbv = document.getElementById("KekBot").getElementsByClassName("kbversion")[0];
-	kbv.parentNode.removeChild(kbv);
-	var kbver = document.createElement("script");
-	kbver.setAttribute("class","kbversion");
-	kbver.setAttribute("src","https://raw.github.com/Strategetical/kekbot/master/info.js");
-	document.getElementById("KekBot").appendChild(kbver);
-})()
+}catch(e){
+	try{
+		kekbot.say("KekBot: Could not update. Please check the console.");
+		console.log("KekBot: "+e);
+	}
+	catch(e){
+		//This must mean we're installing from scratch.
+	}
+}
+var kbv = document.getElementById("KekBot").getElementsByClassName("kbversion")[0];
+kbv.parentNode.removeChild(kbv);

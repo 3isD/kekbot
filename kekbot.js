@@ -102,6 +102,31 @@ kekbot.init = function(){
 	API.on(API.USER_FAN, kekbot.handle.user.fan);
 	API.on(API.USER_SKIP, kekbot.handle.user.skip);
 }
+
+kekbot.update = function(){
+	var kbver = document.createElement("script");
+	kbver.setAttribute("class","kbversion");
+	kbver.setAttribute("src","https://raw.github.com/Strategetical/kekbot/master/info.js");
+	document.getElementById("KekBot").appendChild(kbver);
+}
+
+kekbot.forceUpdate = function(){
+	var newkb = document.createElement("script");
+	newkb.setAttribute("class", "KB_"+kbinf.buildnum);
+	newkb.setAttribute("src", "https://raw.github.com/Strategetical/kekbot/master/kekbot.js");
+	document.getElementById("KekBot").appendChild(newkb);
+}
+
+kekbot.say = function(msg){
+	kekbot.say_raw("/me | "+msg);
+}
+
+kekbot.say_raw = function(msg){
+	var lastmsg = $("#chat-input-field").val();
+	$("#chat-input-field").val(msg).trigger($.Event("keydown",{keyCode: 13}));
+	$("#chat-input-field").val(lastmsg);
+}
+
 //Kekbot handlers.
 kekbot.handle = {};
 kekbot.handle.chat = function(data){
@@ -140,6 +165,8 @@ kekbot.implode = function(){
 	API.off(API.USER_LEAVE, kekbot.handle.user.leave);
 	API.off(API.USER_FAN, kekbot.handle.user.fan);
 	API.off(API.USER_SKIP, kekbot.handle.user.skip);
+	var tr = document.getElementById("KekBot").getElementsByClassName("KB_"+kekbot.buildnum)[0];
+	tr.parentNode.removeChild(tr);
 	kekbot = undefined;
 }
 
@@ -151,3 +178,4 @@ kekbot.init = function(){
 	API.on(API.USER_FAN, kekbot.handle.user.fan);
 	API.on(API.USER_SKIP, kekbot.handle.user.skip);
 }
+kekbot.say("KekBot: Installed. v"+kekbot.version+" BuildNum #"+kekbot.buildnum);
