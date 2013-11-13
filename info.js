@@ -12,6 +12,13 @@ try{
 	}
 	catch(e){
 		//This must mean we're installing from scratch.
+		try{
+			installKekbot();
+		}
+		catch(e){
+			alert("Could not install KekBot! Check the console for more info.");
+			console.log("KekBot: "+e);
+		}
 	}
 }
 var kbv = document.getElementById("KekBot").getElementsByClassName("kbversion")[0];

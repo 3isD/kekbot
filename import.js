@@ -10,7 +10,9 @@ kbdiv.appendChild(kbver);
 var bodelm = document.getElementsByTagName("body")[0];
 bodelm.insertBefore(kbdiv,bodelm.firstChild);
 //install the code
-var newkb = document.createElement("script");
-newkb.setAttribute("class", "KB_"+kbinf.buildnum);
-newkb.setAttribute("src", "https://raw.github.com/Strategetical/kekbot/master/kekbot.js");
-document.getElementById("KekBot").appendChild(newkb);
+function installKekbot(){
+	var newkb = document.createElement("script");
+	newkb.setAttribute("class", "KB_"+kbinf.buildnum);
+	newkb.setAttribute("src", "https://raw.github.com/Strategetical/kekbot/master/kekbot.js");
+	document.getElementById("KekBot").appendChild(newkb);
+}
