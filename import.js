@@ -15,4 +15,5 @@ function installKekbot(){
 	newkb.setAttribute("class", "KB_"+kbinf.buildnum);
 	newkb.setAttribute("src", "https://raw.github.com/Strategetical/kekbot/master/kekbot.js");
 	document.getElementById("KekBot").appendChild(newkb);
+	installKekbot = undefined;
 }
