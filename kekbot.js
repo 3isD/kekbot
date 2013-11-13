@@ -179,3 +179,4 @@ kekbot.init = function(){
 	API.on(API.USER_SKIP, kekbot.handle.user.skip);
 }
 kekbot.say("KekBot: Installed. v"+kekbot.version+" BuildNum #"+kekbot.buildnum);
+kekbot.init();
