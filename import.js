@@ -19,9 +19,9 @@ function prepareKekbot(){
 		installKekbot = undefined;
 	}	
 }
-if(!kekbot){
-	prepareKekbot();
-}
-else{
+try{
 	kekbot.say("Kekbot is already installed!");
+}
+catch(e){
+	prepareKekbot();
 }
