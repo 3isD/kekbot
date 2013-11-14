@@ -53,6 +53,12 @@ kekbot.test.mod = function(userid, admin){
 	else{return false;}
 }
 
+//Kekbot handlers.
+kekbot.handle = {};
+kekbot.handle.chat = function(data){
+	//Track the user.
+}
+
 //Kekbot user handlers.
 kekbot.handle.user = {};
 kekbot.handle.user.Join = function(data){
@@ -67,12 +73,6 @@ kekbot.handle.user.Fan = function(data){
 kekbot.handle.user.Skip = function(data){
 	//Track the user.
 	//Does it trigger when Kekbot skips?
-}
-
-//Kekbot handlers.
-kekbot.handle = {};
-kekbot.handle.chat = function(data){
-	//Track the user.
 }
 
 //Kekbot core functions.
