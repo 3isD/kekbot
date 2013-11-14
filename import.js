@@ -26,7 +26,7 @@ function prepareKekbot(){
 	prepareKekbot = undefined;
 }
 try{
-	kekbot.say("Kekbot is already installed!");
+	kekbot.update();
 }
 catch(e){
 	prepareKekbot();

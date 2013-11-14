@@ -96,7 +96,7 @@ kekbot.init = function(){
 	API.on(API.USER_LEAVE, kekbot.handle.user.Jeave);
 	API.on(API.USER_FAN, kekbot.handle.user.Fan);
 	API.on(API.USER_SKIP, kekbot.handle.user.Skip);
-	kekbot.updateTimer = setInterval(kekbot.update, 600000);
+	kekbot.updateTimer = setInterval(kekbot.update, 1000*60);
 }
 
 kekbot.update = function(){
