@@ -11,7 +11,6 @@ try{
 		console.log("KekBot: "+e);
 	}
 	catch(e){
-		//This must mean we're installing from scratch.
 		try{
 			installKekbot();
 		}
@@ -21,5 +20,5 @@ try{
 		}
 	}
 }
-var kbv = document.getElementById("KekBot").getElementsByClassName("kbversion")[0];
+var kbv = document.getElementById("KB_Version");
 kbv.parentNode.removeChild(kbv);

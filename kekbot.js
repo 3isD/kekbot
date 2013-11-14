@@ -91,6 +91,8 @@ kekbot.implode = function(){
 	API.off(API.USER_LEAVE, kekbot.handle.user.leave);
 	API.off(API.USER_FAN, kekbot.handle.user.fan);
 	API.off(API.USER_SKIP, kekbot.handle.user.skip);
+	var tr = document.getElementById("KekBot").getElementsByClassName("KB_"+kekbot.buildnum)[0];
+	tr.parentNode.removeChild(tr);
 	kekbot = undefined;
 }
 
@@ -157,26 +159,5 @@ kekbot.handle.user.skip = function(data){
 	//Does it trigger when Kekbot skips?
 }
 
-//Kekbot core functions.
-kekbot.implode = function(){
-	console.log("Kekbot: Imploding. Bye bye!");
-	API.off(API.CHAT, kekbot.handle.chat);
-	API.off(API.USER_JOIN, kekbot.handle.user.join);
-	API.off(API.USER_LEAVE, kekbot.handle.user.leave);
-	API.off(API.USER_FAN, kekbot.handle.user.fan);
-	API.off(API.USER_SKIP, kekbot.handle.user.skip);
-	var tr = document.getElementById("KekBot").getElementsByClassName("KB_"+kekbot.buildnum)[0];
-	tr.parentNode.removeChild(tr);
-	kekbot = undefined;
-}
-
-kekbot.init = function(){
-	console.log("Kekbot: Init.");
-	API.on(API.CHAT, kekbot.handle.chat);
-	API.on(API.USER_JOIN, kekbot.handle.user.join);
-	API.on(API.USER_LEAVE, kekbot.handle.user.leave);
-	API.on(API.USER_FAN, kekbot.handle.user.fan);
-	API.on(API.USER_SKIP, kekbot.handle.user.skip);
-}
 kekbot.say("KekBot: Installed. v"+kekbot.version+" BuildNum #"+kekbot.buildnum);
 kekbot.init();
