@@ -31,8 +31,8 @@ var kekbot = {};
 
 //Define the basic settings of Kekbot.
 kekbot.alias = "[KB]";
-kekbot.version = "2.0beta1";
-kekbot.buildnum = 10;
+kekbot.version = "2.0beta2";
+kekbot.buildnum = 11;
 
 //Kekbot user functions. NOT to be confused with kekbot.users, which stores the users.
 kekbot.user = {};
@@ -53,36 +53,6 @@ kekbot.test.mod = function(userid, admin){
 	else{return false;}
 }
 
-//Kekbot handlers.
-kekbot.handle = {};
-kekbot.handle.chat = function(data){
-	//Track the user.
-
-	//Parse whatever the chat says, and run a command if a regex triggers.
-
-	//TODO: Shall I just have just some functions be attached to the handler, and send the data to them on chat?
-	//It seems easier and more flexible that way.
-}
-//Kekbot user handlers.
-kekbot.handle.user = {};
-
-//TODO: Can I have a function that runs a set of functions on a call of any of these functions? A prototype, maybe?
-
-kekbot.handle.user.join = function(data){
-	//Track that user.
-}
-kekbot.handle.user.leave = function(data){
-	//Track that user.
-}
-kekbot.handle.user.fan = function(data){
-	//Track that user.
-	//Also, become a fan of that user.
-}
-kekbot.handle.user.skip = function(data){
-	//Track the user.
-	//Does it trigger when Kekbot skips?
-}
-
 //Kekbot core functions.
 kekbot.implode = function(){
 	console.log("Kekbot: Imploding. Bye bye!");
@@ -91,6 +61,7 @@ kekbot.implode = function(){
 	API.off(API.USER_LEAVE, kekbot.handle.user.leave);
 	API.off(API.USER_FAN, kekbot.handle.user.fan);
 	API.off(API.USER_SKIP, kekbot.handle.user.skip);
+	clearInterval(kekbot.updateTimer);
 	var tr = document.getElementById("KekBot").getElementsByClassName("KB_"+kekbot.buildnum)[0];
 	tr.parentNode.removeChild(tr);
 	kekbot = undefined;
@@ -103,6 +74,7 @@ kekbot.init = function(){
 	API.on(API.USER_LEAVE, kekbot.handle.user.leave);
 	API.on(API.USER_FAN, kekbot.handle.user.fan);
 	API.on(API.USER_SKIP, kekbot.handle.user.skip);
+	kekbot.updateTimer = setInterval(kekbot.update, 600000);
 }
 
 kekbot.update = function(){
@@ -139,11 +111,9 @@ kekbot.handle.chat = function(data){
 	//TODO: Shall I just have just some functions be attached to the handler, and send the data to them on chat?
 	//It seems easier and more flexible that way.
 }
+
 //Kekbot user handlers.
 kekbot.handle.user = {};
-
-//TODO: Can I have a function that runs a set of functions on a call of any of these functions? A prototype, maybe?
-
 kekbot.handle.user.join = function(data){
 	//Track that user.
 }
@@ -152,11 +122,16 @@ kekbot.handle.user.leave = function(data){
 }
 kekbot.handle.user.fan = function(data){
 	//Track that user.
-	//Also, become a fan of that user.
 }
 kekbot.handle.user.skip = function(data){
 	//Track the user.
 	//Does it trigger when Kekbot skips?
+}
+
+//Kekbot handlers.
+kekbot.handle = {};
+kekbot.handle.chat = function(data){
+	//Track the user.
 }
 
 kekbot.say("KekBot: Installed. v"+kekbot.version+" BuildNum #"+kekbot.buildnum);
