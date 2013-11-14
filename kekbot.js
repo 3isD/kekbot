@@ -53,14 +53,36 @@ kekbot.test.mod = function(userid, admin){
 	else{return false;}
 }
 
+//Kekbot user handlers.
+kekbot.handle.user = {};
+kekbot.handle.user.Join = function(data){
+	//Track that user.
+}
+kekbot.handle.user.Leave = function(data){
+	//Track that user.
+}
+kekbot.handle.user.Fan = function(data){
+	//Track that user.
+}
+kekbot.handle.user.Skip = function(data){
+	//Track the user.
+	//Does it trigger when Kekbot skips?
+}
+
+//Kekbot handlers.
+kekbot.handle = {};
+kekbot.handle.chat = function(data){
+	//Track the user.
+}
+
 //Kekbot core functions.
 kekbot.implode = function(){
 	console.log("Kekbot: Imploding. Bye bye!");
 	API.off(API.CHAT, kekbot.handle.chat);
-	API.off(API.USER_JOIN, kekbot.handle.user.join);
-	API.off(API.USER_LEAVE, kekbot.handle.user.leave);
-	API.off(API.USER_FAN, kekbot.handle.user.fan);
-	API.off(API.USER_SKIP, kekbot.handle.user.skip);
+	API.off(API.USER_JOIN, kekbot.handle.user.Join);
+	API.off(API.USER_LEAVE, kekbot.handle.user.Leave);
+	API.off(API.USER_FAN, kekbot.handle.user.Fan);
+	API.off(API.USER_SKIP, kekbot.handle.user.Skip);
 	clearInterval(kekbot.updateTimer);
 	var tr = document.getElementById("KekBot").getElementsByClassName("KB_"+kekbot.buildnum)[0];
 	tr.parentNode.removeChild(tr);
@@ -70,10 +92,10 @@ kekbot.implode = function(){
 kekbot.init = function(){
 	console.log("Kekbot: Init.");
 	API.on(API.CHAT, kekbot.handle.chat);
-	API.on(API.USER_JOIN, kekbot.handle.user.join);
-	API.on(API.USER_LEAVE, kekbot.handle.user.leave);
-	API.on(API.USER_FAN, kekbot.handle.user.fan);
-	API.on(API.USER_SKIP, kekbot.handle.user.skip);
+	API.on(API.USER_JOIN, kekbot.handle.user.Join);
+	API.on(API.USER_LEAVE, kekbot.handle.user.Jeave);
+	API.on(API.USER_FAN, kekbot.handle.user.Fan);
+	API.on(API.USER_SKIP, kekbot.handle.user.Skip);
 	kekbot.updateTimer = setInterval(kekbot.update, 600000);
 }
 
@@ -100,39 +122,6 @@ kekbot.say_raw = function(msg){
 	var lastmsg = $("#chat-input-field").val();
 	$("#chat-input-field").val(msg).trigger($.Event("keydown",{keyCode: 13}));
 	$("#chat-input-field").val(lastmsg);
-}
-
-//Kekbot handlers.
-kekbot.handle = {};
-kekbot.handle.chat = function(data){
-	//Track the user.
-
-	//Parse whatever the chat says, and run a command if a regex triggers.
-
-	//TODO: Shall I just have just some functions be attached to the handler, and send the data to them on chat?
-	//It seems easier and more flexible that way.
-}
-
-//Kekbot user handlers.
-kekbot.handle.user = {};
-kekbot.handle.user.join = function(data){
-	//Track that user.
-}
-kekbot.handle.user.leave = function(data){
-	//Track that user.
-}
-kekbot.handle.user.fan = function(data){
-	//Track that user.
-}
-kekbot.handle.user.skip = function(data){
-	//Track the user.
-	//Does it trigger when Kekbot skips?
-}
-
-//Kekbot handlers.
-kekbot.handle = {};
-kekbot.handle.chat = function(data){
-	//Track the user.
 }
 
 kekbot.say("KekBot: Installed. v"+kekbot.version+" BuildNum #"+kekbot.buildnum);
