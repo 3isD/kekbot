@@ -1,5 +1,5 @@
 kbinf = {};
-kbinf.buildnum = 15;
+kbinf.buildnum = 16;
 try{
 	if (kbinf.buildnum > kekbot.buildnum){
 		kekbot.say("Updating KekBot from build number "+kekbot.buildnum+" to "+kbinf.buildnum);
