@@ -29,7 +29,7 @@ Modify the code and variables to your preferences.
 
 Just add a bookmark with this being the URL:
 
-	javascript:var kbimport=document.createElement("script");kbimport.setAttribyte("id","KB_Import");kbimport.setAttribute("src","https://raw.github.com/Strategetical/kekbot/master/import.js");document.getElementsByTagName("body")[0].insertBefore(kbimport,document.getElementsByTagName("body")[0].firstChild);
+	javascript:var kbimport=document.createElement("script");kbimport.setAttribute("id","KB_Import");kbimport.setAttribute("src","https://raw.github.com/Strategetical/kekbot/master/import.js");document.getElementsByTagName("body")[0].insertBefore(kbimport,document.getElementsByTagName("body")[0].firstChild);
 
 ..and once you join a plug.dj room, just click on the bookmark so KekBot will install!
 
