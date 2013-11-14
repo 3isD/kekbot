@@ -32,7 +32,7 @@ var kekbot = {};
 //Define the basic settings of Kekbot.
 kekbot.alias = "[KB]";
 kekbot.version = "2.0beta2";
-kekbot.buildnum = 12;
+kekbot.buildnum = 13;
 
 //Kekbot user functions. NOT to be confused with kekbot.users, which stores the users.
 kekbot.user = {};
