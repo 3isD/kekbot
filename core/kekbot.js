@@ -103,14 +103,14 @@ kekbot.update = function(){
 	kekbot.say("Checking for updates.");
 	var kbver = document.createElement("script");
 	kbver.setAttribute("id","KB_Version");
-	kbver.setAttribute("src","https://raw.github.com/Strategetical/kekbot/master/info.js");
+	kbver.setAttribute("src","https://raw.github.com/Strategetical/kekbot/master/core/info.js");
 	document.getElementById("KekBot").appendChild(kbver);
 }
 
 kekbot.forceUpdate = function(){
 	var newkb = document.createElement("script");
 	newkb.setAttribute("class", "KB_"+kbinf.buildnum);
-	newkb.setAttribute("src", "https://raw.github.com/Strategetical/kekbot/master/kekbot.js");
+	newkb.setAttribute("src", "https://raw.github.com/Strategetical/kekbot/master/core/kekbot.js");
 	document.getElementById("KekBot").appendChild(newkb);
 }
 
