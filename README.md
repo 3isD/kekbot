@@ -17,7 +17,7 @@ Installation
 
 (no license)
 
-Simply the kekbot_old.js code into your favorite browser's JS console.
+Simply paste old/kekbot.js code into your favorite browser's JS console.
 
 Modify the code and variables to your preferences.
 
