@@ -124,5 +124,41 @@ kekbot.say_raw = function(msg){
 	$("#chat-input-field").val(lastmsg);
 }
 
+kekbot.testURL = function(str){
+	var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+	'((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+	'((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+	'(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+	'(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+	'(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+	return (pattern.test(str))?true:false;
+}
+
+//Kekbot plugin functions.
+kekbot.plugin = {};
+kekbot.plugin.add = function(obj){
+	if(typeof obj != "object"){
+		console.log("KekBot_Plugins: [add] Passed variable is not an object. Quitting.");
+		return false;
+	}
+	if(!obj.name || !obj.url){
+		console.log("KekBot_Plugins: [add] Object doesn't have either a name or url attribute.");
+		return false;
+	}
+	if(!((typeof obj.name == "string") && (typeof obj.url == "string"))){
+		console.log("KekBot_Plugins: [add] Both the plugin name and URL MUST be string!");
+		return false;
+	}
+	if (!(/^[a-z]+$/i.test(obj.name))){
+		console.log("KekBot_Plugins: [add] Plugin name MUST be alphabetic characters only.");
+		return false;
+    	}
+    	if (!kekbot.testURL(obj.url)){
+    		console.log("KekBot_Plugins: [add] Plugin URL MUST be a valid URL!");
+    		return false;
+    	}
+    	
+}
+
 kekbot.say("KekBot: Installed. v"+kekbot.version+" BuildNum #"+kekbot.buildnum);
 kekbot.init();
