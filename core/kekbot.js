@@ -32,7 +32,7 @@ var kekbot = {};
 //Define the basic settings of Kekbot.
 kekbot.alias = "[KB]";
 kekbot.version = "2.0beta2";
-kekbot.buildnum = 16;
+kekbot.buildnum = 17;
 
 //Kekbot user functions. NOT to be confused with kekbot.users, which stores the users.
 kekbot.user = {};
@@ -100,7 +100,7 @@ kekbot.init = function(){
 }
 
 kekbot.update = function(){
-	kekbot.say("Checking for updates.");
+	console.log("Checking for updates.");
 	var kbver = document.createElement("script");
 	kbver.setAttribute("id","KB_Version");
 	kbver.setAttribute("src","https://raw.github.com/Strategetical/kekbot/master/core/info.js");
