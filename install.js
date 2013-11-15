@@ -10,7 +10,7 @@ function prepareKekbot(){
 	kbplugins.appendChild(kbpluginsinfo);
 	var kbver = document.createElement("script");
 	kbver.setAttribute("id","KB_Version");
-	kbver.setAttribute("src","https://raw.github.com/Strategetical/kekbot/master/info.js");
+	kbver.setAttribute("src","https://raw.github.com/Strategetical/kekbot/master/core/info.js");
 	kbdiv.appendChild(kbver);
 	kbdiv.appendChild(kbplugins);
 	var bodelm = document.getElementsByTagName("body")[0];
@@ -19,7 +19,7 @@ function prepareKekbot(){
 		window.kb_plugins = {};
 		var newkb = document.createElement("script");
 		newkb.setAttribute("class", "KB_"+kbinf.buildnum);
-		newkb.setAttribute("src", "https://raw.github.com/Strategetical/kekbot/master/kekbot.js");
+		newkb.setAttribute("src", "https://raw.github.com/Strategetical/kekbot/master/core/kekbot.js");
 		document.getElementById("KekBot").appendChild(newkb);
 		installKekbot = undefined;
 	}
