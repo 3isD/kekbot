@@ -18,6 +18,8 @@ function prepareKekbot(){
 	window.installKekbot = function(){
 		window.kb_plugins = {};
 		kb_plugins.installedPlugins = {};
+		kb_plugins.pendingPlugins = {};
+		kb_plugins.activePlugins = {};
 		var newkb = document.createElement("script");
 		newkb.setAttribute("class", "KB_"+kbinf.buildnum);
 		newkb.setAttribute("src", "https://raw.github.com/Strategetical/kekbot/master/core/kekbot.js");
