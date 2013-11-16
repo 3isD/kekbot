@@ -157,7 +157,24 @@ kekbot.plugin.add = function(obj){
     		console.log("KekBot_Plugins: [add] Plugin URL MUST be a valid URL!");
     		return false;
     	}
-    	
+    	for (item in kb_plugins.installedPlugins){
+    		if (obj.name == item){
+    			console.log("KekBot_Plugins: [add] A plugin with the name "+obj.name+" is already installed!");
+    			return false;
+    		}
+    		if (obj.url == kb_plugins[item]){
+			console.log("KekBot_Plugins: [add] A plugin's update URL is the same with another plugin's.");
+			return false;
+    		}
+    	}
+    	kekbot.installedPlugins[obj.name] = obj.url;
+    	kekbot.plugin.update(obj.name);
+}
+kekbot.plugin.update = function(p){
+	var plugin = document.createElement("script");
+	plugin.setAttribute("id", "KB_PluginInfo_"+p);
+	plugin.setAttribute("src", kb_plugins.installedPlugins[p]);
+	document.getElementById("KB_PluginsInfo").appendChild(plugin);
 }
 
 kekbot.say("KekBot: Installed. v"+kekbot.version+" BuildNum #"+kekbot.buildnum);
