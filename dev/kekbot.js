@@ -32,7 +32,7 @@ var kekbot = {};
 //Define the basic settings of Kekbot.
 kekbot.alias = "[KB]";
 kekbot.version = "2.1(dev)";
-kekbot.buildnum = 19;
+kekbot.buildnum = 20;
 
 //Kekbot user functions. NOT to be confused with kekbot.users, which stores the users.
 kekbot.user = {};
@@ -257,7 +257,7 @@ kekbot.plugin.addListener = function(obj){
 	}
 	catch(e){
 		API.chatLog("Could not add plugin listener.", true);
-		API.chatLog("Type: "+type+" Plugin: "+plugin+" Name: "+name+" Error: "+e, true);
+		API.chatLog("Type: "+obj.type+" Plugin: "+obj.plugin+" Name: "+obj.name+" Error: "+e, true);
 		return false;
 	}
 }
