@@ -31,7 +31,7 @@ var kekbot = {};
 
 //Define the basic settings of Kekbot.
 kekbot.alias = "[KB]";
-kekbot.version = "2.0beta3";
+kekbot.version = "2.1(dev)";
 kekbot.buildnum = 18;
 
 //Kekbot user functions. NOT to be confused with kekbot.users, which stores the users.
@@ -129,14 +129,14 @@ kekbot.update = function(){
 	API.chatLog("Checking for updates.", true);
 	var kbver = document.createElement("script");
 	kbver.setAttribute("id","KB_Version");
-	kbver.setAttribute("src","https://raw.github.com/Strategetical/kekbot/master/core/info.js");
+	kbver.setAttribute("src","https://raw.github.com/Strategetical/kekbot/master/dev/info.js");
 	document.getElementById("KekBot").appendChild(kbver);
 }
 
 kekbot.forceUpdate = function(){
 	var newkb = document.createElement("script");
 	newkb.setAttribute("class", "KB_"+kbinf.buildnum);
-	newkb.setAttribute("src", "https://raw.github.com/Strategetical/kekbot/master/core/kekbot.js");
+	newkb.setAttribute("src", "https://raw.github.com/Strategetical/kekbot/master/dev/kekbot.js");
 	document.getElementById("KekBot").appendChild(newkb);
 }
 
