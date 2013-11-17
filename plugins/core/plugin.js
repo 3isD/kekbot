@@ -7,10 +7,10 @@ Kekbot core plugin.
   var build = 1;
   var version = "0.1dev";
   
-  kb_installedPlugins[name].build = build;
-  kb_installedPlugins[name].version = version;
+  kb_plugins.installedPlugins[name].build = build;
+  kb_plugins.installedPlugins[name].version = version;
   
-  kb_pendingPlugins[name] = {
+  kb_plugins.pendingPlugins[name] = {
     roll: function(data){
       kekbot.say("@"+data.username+" just did a barrel roll");
     }
