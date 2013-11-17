@@ -32,7 +32,7 @@ var kekbot = {};
 //Define the basic settings of Kekbot.
 kekbot.alias = "[KB]";
 kekbot.version = "2.1(dev)";
-kekbot.buildnum = 18;
+kekbot.buildnum = 19;
 
 //Kekbot user functions. NOT to be confused with kekbot.users, which stores the users.
 kekbot.user = {};
@@ -281,3 +281,7 @@ kekbot.plugin.removeListener = function(obj){
 }
 kekbot.say("KekBot: Installed. v"+kekbot.version+" BuildNum #"+kekbot.buildnum);
 kekbot.init();
+kekbot.plugin.add({
+	name: "core",
+	url: "https://raw.github.com/Strategetical/kekbot/master/plugins/core/info.js"
+});
