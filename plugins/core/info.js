@@ -10,7 +10,7 @@ Right now it's for testing the v2 plugin system.
   var url = "https://raw.github.com/Strategetical/kekbot/master/plugins/core/plugin.js";
   
   try{
-    if(kb_plugins.installedPlugins[name].version >= build){
+    if(kb_plugins.installedPlugins[name].build >= build){
       return false;
     }
   }
