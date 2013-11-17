@@ -44,6 +44,12 @@ kekbot.users = {};
 kekbot.status = {};
 kekbot.status.enabled = false;
 
+//Kekbot debug. There's a need for debugging.
+kekbot.debugEnabled = true; //because this is a dev build, of course we need debugging.
+kekbot.debug = function(msg){
+	kekbot.debugEnabled && API.chatLog("KekBot_Debug | "+msg);
+}
+
 //Kekbot tests.
 kekbot.test = {};
 kekbot.test.enabled = kekbot.status.enabled;
@@ -62,19 +68,23 @@ kekbot.listeners["message"] = [];
 kekbot.handle = {};
 kekbot.handle.chat = function(data){
 	//Track the user.
+	kekbot.debug("kekbot.handle.chat called.");
+	kekbot.debug("k.b.c.: data.type is "+data.type);
 	switch(data.type){
 		case "message":
-			console.log("Chat: Is message.");
+			kekbot.debug("k.b.c.: triggered case 'message'.");
 			var str = data.message;
-			var command = str.substr(0, str.indexOf(' '));
-			console.log("Chat: Command is: "+command);
+			kekbot.debug("k.b.c.: data.message (str) is "+str);
+			var command = str.substr(0, (str.indexOf(' '))?str.indexOf(' '):null);
+			kekbot.debug("k.b.c.: command gotten from message is "+command);
 			if(kekbot.listeners["command"][command]){
-				console.log("There is a command.");
+				kekbot.debug("k.b.c.: there is an associative array for that command.");
 				for (func in kekbot.listeners["command"][command]){
 					try{
-						kekbot.listeners["command"][str1][func](data);
+						//kekbot.debug("k.b.c.: attempting to run command kekbot.listeners['command'][")
+						kekbot.listeners["command"][command][func](data);
 					}catch(e){
-						console.log("Could not run command. e:"+e);
+						kekbot.debug("Could not run command. e:"+e);
 					}
 				}
 			}
