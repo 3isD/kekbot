@@ -19,7 +19,7 @@ Kekbot core plugin.
     type: "command",
     command: "^roll",
     plugin: name,
-    name: "say"
+    name: "roll"
   });
   
   kekbot.plugin.verifyInstall(name);
