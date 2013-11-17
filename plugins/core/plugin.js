@@ -15,12 +15,11 @@ Kekbot core plugin.
       kekbot.say("@"+data.username+" just did a barrel roll");
     }
   };
+  kekbot.plugin.verifyInstall(name);
   kekbot.plugin.addListener({
     type: "command",
     command: "^roll",
     plugin: name,
     name: "roll"
   });
-  
-  kekbot.plugin.verifyInstall(name);
 })()
