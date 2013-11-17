@@ -32,7 +32,7 @@ var kekbot = {};
 //Define the basic settings of Kekbot.
 kekbot.alias = "[KB]";
 kekbot.version = "2.1(dev)";
-kekbot.buildnum = 20;
+kekbot.buildnum = 21;
 
 //Kekbot user functions. NOT to be confused with kekbot.users, which stores the users.
 kekbot.user = {};
@@ -64,13 +64,18 @@ kekbot.handle.chat = function(data){
 	//Track the user.
 	switch(data.type){
 		case "message":
+			console.log("Chat: Is message.");
 			var str = data.message;
 			var command = str.substr(0, str.indexOf(' '));
+			console.log("Chat: Command is: "+command);
 			if(kekbot.listeners["command"][command]){
+				console.log("There is a command.");
 				for (func in kekbot.listeners["command"][command]){
 					try{
 						kekbot.listeners["command"][str1][func](data);
-					}catch(e){}
+					}catch(e){
+						console.log("Could not run command. e:"+e);
+					}
 				}
 			}
 			for (func in kekbot.listeners["message"]){
