@@ -18,12 +18,35 @@ Kekbot core plugin.
   /////////////////////////////////////////////////
   //THIS IS WHERE YOU ADD FUNCTIONS
   z.enable = function(data){
-    //if(kekbot.test.mod(data.fromID, true))//You can test for certain things before running the command.
-    //{
-    kekbot.debug(1, "Enabling.");
+    //if(kekbot.test.mod(data.fromID, true)){
     kekbot.status.enabled = true;
-    kekbot.debug(1, "k.s.e.: "+kekbot.status.enabled);
-    kekbot.debug(1, "k.t.e.: "+kekbot.test.enabled);
+    kekbot.test.enabled = true;
+    kekbot.say("Enabled.");
+    //}
+  }
+  z.disable = function(data){
+    //if(kekbot.test.mod(data.fromID, true)){
+    kekbot.status.enabled = false;
+    kekbot.test.enabled = false;
+    kekbot.say("Disabled.");
+    //}
+  }
+  z.debug = function(data){
+    //if(kekbot.test.mod(data.fromID, true){
+    data.message = data.message.split(" ");
+    try{
+      var lvl = parseInt(data.message[1]);
+      if (lvl > 5 || lvl < 0){
+        kekbot.debug(1, "Cannot set debugging level to a number more than 5 or less than 0!");
+      }
+      if (lvl == 0){
+        kekbot.say("Debug: disabled.");
+      }
+      else{
+        kekbot.say("Debug: set to level "+lvl);
+      }
+      
+    }
     //}
   }
   /////////////////////////////////////////////////
@@ -40,6 +63,18 @@ Kekbot core plugin.
     command: "$enable",
     plugin: name,
     name: "enable"
+  });
+  kekbot.plugin.addListener({
+    type: "command",
+    command: "$disable",
+    plugin: name,
+    name: "disable"
+  });
+  kekbot.plugin.addListener({
+    type: "command",
+    command: "$debug",
+    plugin: name,
+    name: "debug"
   });
   /////////////////////////////////////////////////
   
