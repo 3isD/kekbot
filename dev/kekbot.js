@@ -75,7 +75,7 @@ kekbot.handle.chat = function(data){
 			kekbot.debug("k.b.c.: triggered case 'message'.");
 			var str = data.message;
 			kekbot.debug("k.b.c.: data.message (str) is "+str);
-			var command = str.substr(0, (str.indexOf(' '))?str.indexOf(' '):null);
+			var command = (str.indexOf(' ') > -1)?str.substr(0, str.indexOf(' ')):str;
 			kekbot.debug("k.b.c.: command gotten from message is "+command);
 			if(kekbot.listeners["command"][command]){
 				kekbot.debug("k.b.c.: there is an associative array for that command.");
