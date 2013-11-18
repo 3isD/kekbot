@@ -46,7 +46,7 @@ Kekbot core plugin.
         kekbot.say("Debug: set to level "+lvl);
       }
       
-    }
+    }catch(e){}
     //}
   }
   /////////////////////////////////////////////////
