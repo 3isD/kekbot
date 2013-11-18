@@ -45,9 +45,9 @@ kekbot.status = {};
 kekbot.status.enabled = false;
 
 //Kekbot debug. There's a need for debugging.
-kekbot.debugEnabled = true; //because this is a dev build, of course we need debugging.
-kekbot.debug = function(msg){
-	kekbot.debugEnabled && API.chatLog("KekBot_Debug | "+msg);
+kekbot.debugLevel = 3; //levels go from 0 to 5, depending on the level of verbosity we want.
+kekbot.debug = function(verbosity, msg){
+	(kekbot.debugLevel >= verbosity)?API.chatLog("KekBot_Debug | "+msg):null;
 }
 
 //Kekbot tests.
@@ -68,29 +68,29 @@ kekbot.listeners["message"] = [];
 kekbot.handle = {};
 kekbot.handle.chat = function(data){
 	//Track the user.
-	kekbot.debug("kekbot.handle.chat called.");
-	kekbot.debug("k.b.c.: data.type is "+data.type);
+	kekbot.debug(2, "kekbot.handle.chat called.");
+	kekbot.debug(3, "k.b.c.: data.type is "+data.type);
 	switch(data.type){
 		case "message":
-			kekbot.debug("k.b.c.: triggered case 'message'.");
+			kekbot.debug(4, "k.b.c.: triggered case 'message'.");
 			var str = data.message;
-			kekbot.debug("k.b.c.: data.message (str) is "+str);
+			kekbot.debug(4, "k.b.c.: data.message (str) is "+str);
 			var command = (str.indexOf(' ') > -1)?str.substr(0, str.indexOf(' ')):str;
-			kekbot.debug("k.b.c.: command gotten from message is "+command);
+			kekbot.debug(4, "k.b.c.: command gotten from message is "+command);
 			if(kekbot.listeners["command"][command]){
-				kekbot.debug("k.b.c.: there is an associative array for that command.");
+				kekbot.debug(5, "k.b.c.: there is an associative array for that command.");
 				for (var func = 0;func < kekbot.listeners["command"][command].length; func++){
 					try{
-						//kekbot.debug("k.b.c.: attempting to run command kekbot.listeners['command'][")
+						kekbot.debug(5, "k.b.c.: attempting to run command kekbot.listeners['command']['"+command+"']["+func+"]");
 						kekbot.listeners["command"][command][func](data);
 					}catch(e){
-						kekbot.debug("Could not run command. e:"+e);
+						kekbot.debug(3, "Could not run command. e:"+e);
 					}
 				}
 			}
 			for (func in kekbot.listeners["message"]){
 				try{
-					kekbot.listeners["message"][func](data);
+					//kekbot.listeners["message"][func](data);
 				}catch(e){}
 			}
 			break;
