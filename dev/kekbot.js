@@ -47,7 +47,7 @@ kekbot.status.enabled = false;
 //Kekbot debug. There's a need for debugging.
 kekbot.debugLevel = 3; //levels go from 0 to 5, depending on the level of verbosity we want.
 kekbot.debug = function(verbosity, msg){
-	(kekbot.debugLevel >= verbosity)?API.chatLog("KekBot_Debug | "+msg):null;
+	(kekbot.debugLevel >= verbosity)?API.chatLog("KekBot_Debug | "+msg, (verbosity == 1)?true:false):null;
 }
 
 //Kekbot tests.
@@ -117,7 +117,7 @@ kekbot.handle.user.Skip = function(data){
 
 //Kekbot core functions.
 kekbot.implode = function(){
-	API.chatLog("Kekbot: Imploding. Bye bye!", true);
+	kekbot.debug(1, "Kekbot: Imploding. Bye bye!");
 	API.off(API.CHAT, kekbot.handle.chat);
 	API.off(API.USER_JOIN, kekbot.handle.user.Join);
 	API.off(API.USER_LEAVE, kekbot.handle.user.Leave);
@@ -130,7 +130,7 @@ kekbot.implode = function(){
 }
 
 kekbot.init = function(){
-	API.chatLog("Kekbot: Init.", true);
+	kekbot.debug(1, "Kekbot: Init.");
 	API.on(API.CHAT, kekbot.handle.chat);
 	API.on(API.USER_JOIN, kekbot.handle.user.Join);
 	API.on(API.USER_LEAVE, kekbot.handle.user.Jeave);
@@ -141,7 +141,7 @@ kekbot.init = function(){
 }
 
 kekbot.update = function(){
-	API.chatLog("Checking for updates.", true);
+	kekbot.debug(1, "Checking for updates.");
 	var kbver = document.createElement("script");
 	kbver.setAttribute("id","KB_Version");
 	kbver.setAttribute("src","https://raw.github.com/Strategetical/kekbot/master/dev/info.js");
@@ -179,32 +179,32 @@ kekbot.testURL = function(str){
 kekbot.plugin = {};
 kekbot.plugin.add = function(obj){
 	if(typeof obj != "object"){
-		API.chatLog("KekBot_Plugins: [add] Passed variable is not an object. Quitting.", true);
+		kekbot.debug(1, "KekBot_Plugins: [add] Passed variable is not an object. Quitting.");
 		return false;
 	}
 	if(!obj.name || !obj.url){
-		API.chatLog("KekBot_Plugins: [add] Object doesn't have either a name or url attribute.", true);
+		kekbot.debug(1, "KekBot_Plugins: [add] Object doesn't have either a name or url attribute.");
 		return false;
 	}
 	if(!((typeof obj.name == "string") && (typeof obj.url == "string"))){
-		API.chatLog("KekBot_Plugins: [add] Both the plugin name and URL MUST be string!", true);
+		kekbot.debug(1, "KekBot_Plugins: [add] Both the plugin name and URL MUST be string!");
 		return false;
 	}
 	if (!(/^[a-z]+$/i.test(obj.name))){
-		API.chatLog("KekBot_Plugins: [add] Plugin name MUST be alphabetic characters only.", true);
+		kekbot.debug(1, "KekBot_Plugins: [add] Plugin name MUST be alphabetic characters only.");
 		return false;
     	}
     	if (!kekbot.testURL(obj.url)){
-    		API.chatLog("KekBot_Plugins: [add] Plugin URL MUST be a valid URL!", true);
+    		kekbot.debug(1, "KekBot_Plugins: [add] Plugin URL MUST be a valid URL!");
     		return false;
     	}
     	for (item in kb_plugins.installedPlugins){
     		if (obj.name == item){
-    			API.chatLog("KekBot_Plugins: [add] A plugin with the name "+obj.name+" is already installed!", true);
+    			kekbot.debug(1, "KekBot_Plugins: [add] A plugin with the name "+obj.name+" is already installed!");
     			return false;
     		}
     		if (obj.url == kb_plugins[item]){
-			API.chatLog("KekBot_Plugins: [add] A plugin's update URL is the same with another plugin's.", true);
+			kekbot.debug(1, "KekBot_Plugins: [add] A plugin's update URL is the same with another plugin's.");
 			return false;
     		}
     	}
@@ -217,7 +217,7 @@ kekbot.plugin.update = function(p){
 	try{
 		kb_plugins.installedPlugins[p].installed = false;
 	}catch(e){
-		API.chatLog("KekBot_Plugins: [update] Cannot update a plugin that isn't installed!");
+		kekbot.debug(1, "KekBot_Plugins: [update] Cannot update a plugin that isn't installed!");
 		return false;
 	}
 	var plugininfo = document.createElement("script");
@@ -227,11 +227,11 @@ kekbot.plugin.update = function(p){
 }
 kekbot.plugin.install = function(name, url){
 	try{
-		var x = document.getElementById("id", "KB_PluginInfo_"+name);
+		var x = document.getElementById("KB_PluginInfo_"+name);
 		x.parentNode.removeChild(x);
 	}
 	catch(e){
-		API.chatLog("KekBot: could not remove plugin version info during installation (not supposed to happen)!", true);
+		kekbot.debug(1, "KekBot: could not remove plugin version info during installation (not supposed to happen)!");
 	}
 	var plugin = document.createElement("script");
 	plugin.setAttribute("id", "KB_Plugin_"+name);
@@ -245,8 +245,8 @@ kekbot.plugin.verifyInstall = function(name){
 		delete kb_plugins.pendingPlugins[name];
 	}
 	catch(e){
-		API.chatLog("Could not install the plugin "+name+"!", true);
-		API.chatLog("Error: "+e, true);
+		kekbot.debug(1, "Could not install the plugin "+name+"!");
+		kekbot.debug(1, "Error: "+e);
 		try{
 			delete kb_plugins.pendingPlugins[name];
 			delete kb_plugins.activePlugins[name];
@@ -266,13 +266,13 @@ kekbot.plugin.addListener = function(obj){
 				kekbot.listeners[obj.type].push(kb_plugins.activePlugins[obj.plugin][obj.name]);
 				return {type: obj.type, index: kekbot.listeners[obj.type].length-1};
 			default:
-				kekbot.chatLog("Could not add plugin listener: unsupported type.");
+				kekbot.debug(1, "Could not add plugin listener: unsupported type.");
 				return false;
 		}
 	}
 	catch(e){
-		API.chatLog("Could not add plugin listener.", true);
-		API.chatLog("Type: "+obj.type+" Plugin: "+obj.plugin+" Name: "+obj.name+" Error: "+e, true);
+		kekbot.debug(1, "Could not add plugin listener.");
+		kekbot.debug(1, "Type: "+obj.type+" Plugin: "+obj.plugin+" Name: "+obj.name+" Error: "+e);
 		return false;
 	}
 }
@@ -284,14 +284,14 @@ kekbot.plugin.removeListener = function(obj){
 			case "message":
 				kekbot.listeners[obj.type][obj.index] = function(a){};
 			default:
-				kekbot.chatLog("Could not remove plugin listener: unsupported type.");
+				kekbot.debug(1, "Could not remove plugin listener: unsupported type.");
 				return false;
 		}
 		
 	}
 	catch(e){
-		API.chatLog("Could not remove plugin listener.", true);
-		API.chatLog("Error: "+e, true);
+		kekbot.debug(1, "Could not remove plugin listener.");
+		kekbot.debug(1, "Error: "+e);
 	}
 }
 kekbot.say("KekBot: Installed. v"+kekbot.version+" BuildNum #"+kekbot.buildnum);
