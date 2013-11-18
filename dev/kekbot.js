@@ -45,7 +45,7 @@ kekbot.status = {};
 kekbot.status.enabled = false;
 
 //Kekbot debug. There's a need for debugging.
-kekbot.debugLevel = 3; //levels go from 0 to 5, depending on the level of verbosity we want.
+kekbot.debugLevel = 1; //levels go from 0 to 5, depending on the level of verbosity we want.
 kekbot.debug = function(verbosity, msg){
 	(kekbot.debugLevel >= verbosity)?API.chatLog("KekBot_Debug | "+msg, (verbosity == 1)?true:false):null;
 }
