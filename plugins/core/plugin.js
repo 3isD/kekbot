@@ -12,7 +12,7 @@ Kekbot core plugin.
   
   kb_plugins.pendingPlugins[name] = {
     roll: function(data){
-      kekbot.say("@"+data.username+" just did a barrel roll");
+      kekbot.say("@"+data.from+" just did a barrel roll");
     }
   };
   kekbot.plugin.verifyInstall(name);
