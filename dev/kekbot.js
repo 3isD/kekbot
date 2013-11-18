@@ -79,7 +79,7 @@ kekbot.handle.chat = function(data){
 			kekbot.debug("k.b.c.: command gotten from message is "+command);
 			if(kekbot.listeners["command"][command]){
 				kekbot.debug("k.b.c.: there is an associative array for that command.");
-				for (func in kekbot.listeners["command"][command]){
+				for (var func = 0;func < kekbot.listeners["command"][command].length; func++){
 					try{
 						//kekbot.debug("k.b.c.: attempting to run command kekbot.listeners['command'][")
 						kekbot.listeners["command"][command][func](data);
