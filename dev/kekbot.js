@@ -33,6 +33,7 @@ var kekbot = {};
 kekbot.alias = "[KB]";
 kekbot.version = "2.1(dev)";
 kekbot.buildnum = 21;
+kekbot.pluginType = "v1";
 
 //Kekbot user functions. NOT to be confused with kekbot.users, which stores the users.
 kekbot.user = {};
@@ -54,9 +55,23 @@ kekbot.debug = function(verbosity, msg){
 kekbot.test = {};
 kekbot.test.enabled = kekbot.status.enabled;
 kekbot.test.mod = function(userid, admin){
-	if (!admin && kekbot.users[userid].role > 1){return true;}
-	else if (admin && kekbot.users[userid].role > 2){return true;}
-	else{return false;}
+	kekbot.debug(4, "kekbot.test.mod called.");
+	if (!admin && kekbot.users[userid].role > 1){
+		kekbot.debug(4, "k.t.m: User is mod. Returning true.");
+		return true;
+	}
+	else if (admin && kekbot.users[userid].role > 2){
+		kekbot.debug(4, "k.t.m: User is admin. Returning true.");
+		return true;
+	}
+	else{
+		kekbot.debug(4, "k.t.m: User isn't a mod nor an admin. Returning false.");
+		return false;
+	}
+}
+kekbot.test.kekbot = function(userid){
+	kekbot.debug(4, "kekbot.test.kekbot called.");
+	return (API.getUser().id == userid)?true:false;
 }
 
 //Kekbot listeners (added by plugins)
@@ -69,19 +84,19 @@ kekbot.handle = {};
 kekbot.handle.chat = function(data){
 	//Track the user.
 	kekbot.debug(2, "kekbot.handle.chat called.");
-	kekbot.debug(3, "k.b.c.: data.type is "+data.type);
+	kekbot.debug(3, "k.b.c: data.type is "+data.type);
 	switch(data.type){
 		case "message":
-			kekbot.debug(4, "k.b.c.: triggered case 'message'.");
+			kekbot.debug(4, "k.b.c: triggered case 'message'.");
 			var str = data.message;
-			kekbot.debug(4, "k.b.c.: data.message (str) is "+str);
+			kekbot.debug(4, "k.b.c: data.message (str) is "+str);
 			var command = (str.indexOf(' ') > -1)?str.substr(0, str.indexOf(' ')):str;
-			kekbot.debug(4, "k.b.c.: command gotten from message is "+command);
+			kekbot.debug(4, "k.b.c: command gotten from message is "+command);
 			if(kekbot.listeners["command"][command]){
-				kekbot.debug(5, "k.b.c.: there is an associative array for that command.");
+				kekbot.debug(5, "k.b.c: there is an associative array for that command.");
 				for (var func = 0;func < kekbot.listeners["command"][command].length; func++){
 					try{
-						kekbot.debug(5, "k.b.c.: attempting to run command kekbot.listeners['command']['"+command+"']["+func+"]");
+						kekbot.debug(5, "k.b.c: attempting to run command kekbot.listeners['command']['"+command+"']["+func+"]");
 						kekbot.listeners["command"][command][func](data);
 					}catch(e){
 						kekbot.debug(3, "Could not run command. e:"+e);
@@ -243,6 +258,7 @@ kekbot.plugin.verifyInstall = function(name){
 		kb_plugins.activePlugins[name] = kb_plugins.pendingPlugins[name];
 		kb_plugins.installedPlugins[name].installed = true;
 		delete kb_plugins.pendingPlugins[name];
+		return true;
 	}
 	catch(e){
 		kekbot.debug(1, "Could not install the plugin "+name+"!");
@@ -252,6 +268,7 @@ kekbot.plugin.verifyInstall = function(name){
 			delete kb_plugins.activePlugins[name];
 		}catch(e){}
 	}
+	return false;
 }
 kekbot.plugin.addListener = function(obj){
 	try{
@@ -294,6 +311,11 @@ kekbot.plugin.removeListener = function(obj){
 		kekbot.debug(1, "Error: "+e);
 	}
 }
+kekbot.plugin.testType = function(type){
+	return (type == kekbot.pluginType)?true:false;
+}
+
+//Start kekbot.
 kekbot.say("KekBot: Installed. v"+kekbot.version+" BuildNum #"+kekbot.buildnum);
 kekbot.init();
 kekbot.plugin.add({
