@@ -8,13 +8,17 @@ Kekbot core plugin.
   var name = "core";
   var build = 1;
   var version = "0.1dev";
+  var pluginType = "v1";
   /////////////////////////////////////////////////
-  
+  if(!kekbot.plugin.testType(pluginType)){
+    //This means that the plugin isn't supported by Kekbot (needs to be updated)
+    kekbot.debug(1, "Plugin "+name+" could not be installed: outdated plugin!");
+    return false;
+  }
   kb_plugins.installedPlugins[name].build = build;
   kb_plugins.installedPlugins[name].version = version;
   kb_plugins.pendingPlugins[name] = {};
   var z = kb_plugins.pendingPlugins[name];
-  
   /////////////////////////////////////////////////
   //THIS IS WHERE YOU ADD FUNCTIONS
   z.enable = function(data){
@@ -36,6 +40,7 @@ Kekbot core plugin.
     data.message = data.message.split(" ");
     try{
       var lvl = parseInt(data.message[1]);
+      kekbot.debugLevel = lvl;
       if (lvl > 5 || lvl < 0){
         kekbot.debug(1, "Cannot set debugging level to a number more than 5 or less than 0!");
       }
@@ -46,14 +51,38 @@ Kekbot core plugin.
         kekbot.say("Debug: set to level "+lvl);
       }
       
-    }catch(e){}
+    }catch(e){kekbot.debug(5, e);}
+    //}
+  }
+  z.addMod = function(data){
+    //if(kekbot.test.mod(data.fromID, true){
+    
+    //}
+  }
+  z.removeMod = function(data){
+    //if(kekbot.test.mod(data.fromID, true){
+    
+    //}
+  }
+  z.addAdmin = function(data){
+    //if(kekbot.test.kekbot(data.fromID){
+    
+    //}
+  }
+  z.removeAdmin = function(data){
+    //if(kekbot.test.kekbot(data.fromID){
+    
     //}
   }
   /////////////////////////////////////////////////
   
   /////////////////////////////////////////////////
   //IF ALL WENT WELL, WE WILL INSTALL THE FUNCTIONS
-  kekbot.plugin.verifyInstall(name);
+  if(!kekbot.plugin.verifyInstall(name)){
+    //if it returned false, then installation wasn't successful.
+    kekbot.debug(1, "Plugin "+name+" could not be installed: could not verify install!");
+    return false;
+  }
   /////////////////////////////////////////////////
   
   /////////////////////////////////////////////////
@@ -75,6 +104,30 @@ Kekbot core plugin.
     command: "$debug",
     plugin: name,
     name: "debug"
+  });
+  kekbot.plugin.addListener({
+    type: "command",
+    command: "$addmod",
+    plugin: name,
+    name: "addMod"
+  });
+  kekbot.plugin.addListener({
+    type: "command",
+    command: "$removemod",
+    plugin: name,
+    name: "removeMod"
+  });
+  kekbot.plugin.addListener({
+    type: "command",
+    command: "$addadmin",
+    plugin: name,
+    name: "addAdmin"
+  });
+  kekbot.plugin.addListener({
+    type: "command",
+    command: "$removeadmin",
+    plugin: name,
+    name: "removeAdmin"
   });
   /////////////////////////////////////////////////
   
