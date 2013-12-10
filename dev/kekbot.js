@@ -204,9 +204,7 @@ kekbot_info.canInstall&& //if kekbot_info.canInstall = true, then install/update
 	}
 	
 	kekbot.say_raw = function(msg){
-		var lastmsg = $("#chat-input-field").val();
-		$("#chat-input-field").val(msg).trigger($.Event("keydown",{keyCode: 13}));
-		$("#chat-input-field").val(lastmsg);
+		API.sendChat(msg);
 	}
 	
 	kekbot.testURL = function(str){
