@@ -61,7 +61,7 @@ kekbot_info.canInstall&& //if kekbot_info.canInstall = true, then install/update
 	//Define the basic settings of Kekbot.
 	kekbot.alias = "[KB]";
 	kekbot.version = "2.1(dev)";
-	kekbot.buildnum = kb_bn;
+	kekbot.buildnum = kekbot_info.build;
 	kekbot.pluginType = "v1";
 	
 	//Kekbot user functions. NOT to be confused with kekbot.users, which stores the users.
