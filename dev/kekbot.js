@@ -23,9 +23,12 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ***********************************************************************************/
 
+//Set up kekbot_info
 var kekbot_info = {};
-kekbot_info.build = 21;
+kekbot_info.build = 22;
 kekbot_info.canInstall = false;
+
+//First, check if you should/can update/install or not.
 (function(){
 	var ki = kekbot_info;
 	try{
@@ -36,7 +39,7 @@ kekbot_info.canInstall = false;
 	}
 	catch(e){
 		try{
-			kekbot.debug(1, "KekBot.Update: Could not update. Error: "+e);
+			kekbot.debug(1, "Kekbot.Update: Could not update. Error: "+e);
 		}
 		catch(e){
 			try{
@@ -44,41 +47,76 @@ kekbot_info.canInstall = false;
 			}
 			catch(e){
 				alert("Kekbot.Install: Could not install KekBot! Check the console for more info.");
-				console.log("KekBot.Install: "+e);
+				console.log("Kekbot.Install: "+e);
 			}
 		}
 	}
 })();
 
-kekbot_info.canInstall&& //if kekbot_info.canInstall = true, then install/update kekbot.
+//Next, check for required modules.
+kekbot_info.canInstall&&
+(function(){
+	var m = {
+		API: false,
+		localStorage: false
+	};
+	try{
+		API.getUsers();
+		m.API = true;
+	}catch(e){}
+	try{
+		if ('localStorage' in window && window['localStorage'] !== null){
+			m.localStorage = true;
+		}
+	}catch(e){}
+
+	//Now, check if any required modules are missing.
+	var missing = [];
+	for (mod in m){
+		if (!m[mod]){
+			missing.push(mod);
+		}
+	}
+	if (missing.length > 1){
+		kekbot_info.canInstall = false;
+		alert("Could not install Kekbot! Check the console for more info.");
+		console.error("Kekbot.Install: Can't install! Missing modules: "+missing.join("; "));	
+	}
+})();
+
+//Finally, install Kekbot.
+kekbot_info.canInstall&&
 (function(){
 	//Start by imploding kekbot, in case this is a code hotswap.
 	try{kekbot.implode();}catch(e){}
 	
 	//Once Kekbot implodes, we can safely define this code.
-	var kekbot = {};
+	window.kekbot = {}; //window.kekbot because we want this to be a global variable.
 	
+	//Kekbot debug. There's a need for debugging.
+	kekbot.debug = function(msg){
+		API.chatLog("KekBot_Debug | "+msg, false);
+	}
+
+	//Kekbot's personal variables/functions. Do not touch.
+	kekbot._self = {};
+
 	//Define the basic settings of Kekbot.
 	kekbot.alias = "[KB]";
 	kekbot.version = "2.1(dev)";
-	kekbot.buildnum = kekbot_info.build;
+	kekbot.buildnum = parseInt(kekbot_info.build);
 	kekbot.pluginType = "v1";
+	kekbot.enabled = false;
+	kekbot.fatal = false; //If Kekbot had a REALLY big screwup.
+
+	//Get rid of kekbot_info. We don't need it anymore.
+	kekbot_info = undefined;
 	
 	//Kekbot user functions. NOT to be confused with kekbot.users, which stores the users.
 	kekbot.user = {};
 	
 	//Kekbot users.
 	kekbot.users = {};
-	
-	//Kekbot status. Not sure what I am going to do with this yet.
-	kekbot.status = {};
-	kekbot.status.enabled = false;
-	
-	//Kekbot debug. There's a need for debugging.
-	kekbot.debugLevel = 1; //levels go from 0 to 5, depending on the level of verbosity we want.
-	kekbot.debug = function(verbosity, msg){
-		(kekbot.debugLevel >= verbosity)?API.chatLog("KekBot_Debug | "+msg, (verbosity == 1)?true:false):null;
-	}
 	
 	//Kekbot tests.
 	kekbot.test = {};
@@ -342,11 +380,14 @@ kekbot_info.canInstall&& //if kekbot_info.canInstall = true, then install/update
 		return (type == kekbot.pluginType)?true:false;
 	}
 	
+	//Quick aliases.
+	var debug = kekbot.debug;
+
 	//Start kekbot.
 	kekbot.say("KekBot: Installed. v"+kekbot.version+" BuildNum #"+kekbot.buildnum);
 	kekbot.init();
 	kekbot.plugin.add({
 		name: "core",
 		url: "https://raw.github.com/Strategetical/kekbot/master/plugins/core/info.js"
-});
+	});
 })();
