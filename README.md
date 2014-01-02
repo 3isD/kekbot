@@ -25,6 +25,8 @@ Modify the code and variables to your preferences.
 
 (MIT license)
 
+***note: kekbot isn't ready for full use, so don't install it just yet!***
+
 ##### Chrom(e/ium)
 
 Just add a bookmark with this being the URL:
